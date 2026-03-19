@@ -3,7 +3,8 @@ words = ["python","programa","variable","funcion","bucle","cadena","entero","lis
 word = random.choice(words)
 guessed = []
 attempts = 6
-abc = "abcdefghijklmnñopqrstuvwxyz"
+
+puntaje = 0
 
 print("¡Bienvenido al Ahorcado!")
 print()
@@ -12,31 +13,40 @@ while attempts > 0:
 # Mostrar progreso: letras adivinadas y guiones para las que faltan
     progress = ""
     for letter in word:
-    if letter in guessed:
-    progress += letter + " "
-else:
-progress += "_ "
-print(progress)
+        if letter in guessed:
+            progress += letter + " "
+        else:
+            progress += "_ "
+    print(progress)
 # Verificar si el jugador ya adivinó la palabra completa
-if "_" not in progress:
-print("¡Ganaste!")
-break
-print(f"Intentos restantes: {attempts}")
-print(f"Letras usadas: {', '.join(guessed)}")
+    if "_" not in progress:
+        puntaje += 6
+        print(f"¡Ganaste! Tu puntaje final es: {puntaje}")
+        break
 
-letter = input("Ingresá una letra: ").lower() ## uso lower para convertir mayus en minus para evitar error ##
+    print(f"Intentos restantes: {attempts} | Puntaje actual: {puntaje}")
+    print(f"Letras usadas: {', '.join(guessed)}")
 
-if len(letter) != 1 or not letter not in abc:
-    print("Entrada no válida.")
-    continue
+    abc = "abcdefghijklmnñopqrstuvwxyz"
+    letter = input("Ingresá una letra: ").lower() ## uso lower para convertir mayus en minus para evitar error ##
 
-elif letter in word:
-guessed.append(letter)
-print("¡Bien! Esa letra está en la palabra.")
+    if len(letter) != 1 or not letter not in abc:
+        print("Entrada no válida.")
+        continue
+
+    if letter in guessed:
+        print("Ya usaste esa letra.")
+        continue
+
+    if letter in word:
+        guessed.append(letter)
+        print("¡Bien! Esa letra está en la palabra.")
+    else:
+        guessed.append(letter)
+        attempts -= 1
+        puntaje -= 1
+        print("Esa letra no está en la palabra.")
+        print()
 else:
-guessed.append(letter)
-attempts -= 1
-print("Esa letra no está en la palabra.")
-print()
-else:
-print(f"¡Perdiste! La palabra era: {word}")
+    puntaje = 0
+    print(f"¡Perdiste! La palabra era: {word}")
