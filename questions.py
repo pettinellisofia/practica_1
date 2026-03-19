@@ -1,16 +1,27 @@
 import random
-words = ["python","programa","variable","funcion","bucle","cadena","entero","lista",]
-word = random.choice(words)
-guessed = []
-attempts = 6
 
-puntaje = 0
+categorias = {
+    "estructuras": ["cadena","lista", "funcion", "cadena"],
+    "conceptos": ["python","programa", "variable", "entero"]
+}
 
 print("¡Bienvenido al Ahorcado!")
+print(f"Categorias: esturcturas, conceptos")
+
+opcion = input("Elegi una categoria: ").lower()
+if opcion not in categorias:
+    opcion = "conceptos"
+
+words = categorias[opcion]
+word = random.choice(words)
+
+guessed = []
+attempts = 6
+puntaje = 0
+
 print()
 
 while attempts > 0:
-# Mostrar progreso: letras adivinadas y guiones para las que faltan
     progress = ""
     for letter in word:
         if letter in guessed:
@@ -30,7 +41,7 @@ while attempts > 0:
     abc = "abcdefghijklmnñopqrstuvwxyz"
     letter = input("Ingresá una letra: ").lower() ## uso lower para convertir mayus en minus para evitar error ##
 
-    if len(letter) != 1 or not letter not in abc:
+    if len(letter) != 1 or not letter in abc:
         print("Entrada no válida.")
         continue
 
