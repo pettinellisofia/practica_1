@@ -1,19 +1,22 @@
 import random
 
 categorias = {
-    "estructuras": ["cadena","lista", "funcion", "cadena"],
+    "estructuras": ["cadena","lista", "funcion"],
     "conceptos": ["python","programa", "variable", "entero"]
 }
 
 print("¡Bienvenido al Ahorcado!")
-print(f"Categorias: esturcturas, conceptos")
+print(f"Categorias: estructuras, conceptos")
 
 opcion = input("Elegi una categoria: ").lower()
 if opcion not in categorias:
     opcion = "conceptos"
 
 words = categorias[opcion]
-word = random.choice(words)
+
+palabras_mezcladas = random.sample(words,len(words))
+
+word = palabras_mezcladas[0]
 
 guessed = []
 attempts = 6
@@ -22,12 +25,7 @@ puntaje = 0
 print()
 
 while attempts > 0:
-    progress = ""
-    for letter in word:
-        if letter in guessed:
-            progress += letter + " "
-        else:
-            progress += "_ "
+    progress = " ".join([letter if letter in guessed else "_" for letter in word])
     print(progress)
 # Verificar si el jugador ya adivinó la palabra completa
     if "_" not in progress:
