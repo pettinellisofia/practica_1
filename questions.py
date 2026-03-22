@@ -1,4 +1,5 @@
 import random
+import string
 
 categorias = {
     "estructuras": ["cadena","lista", "funcion"],
@@ -36,10 +37,9 @@ while attempts > 0:
     print(f"Intentos restantes: {attempts} | Puntaje actual: {puntaje}")
     print(f"Letras usadas: {', '.join(guessed)}")
 
-    abc = "abcdefghijklmnñopqrstuvwxyz"
     letter = input("Ingresá una letra: ").lower() ## uso lower para convertir mayus en minus para evitar error ##
 
-    if len(letter) != 1 or not letter in abc:
+    if len(letter) != 1 or not letter in string.ascii_letters:
         print("Entrada no válida.")
         continue
 
